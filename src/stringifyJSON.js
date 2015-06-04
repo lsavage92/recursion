@@ -21,7 +21,7 @@ var stringifyJSON = function(obj) {
   }
   else{
   	//stub for handling primative values
-  	handlePrimatives(obj);
+  	handlePrimative(obj);
   }
 };
 
