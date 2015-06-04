@@ -17,12 +17,14 @@ var stringifyJSON = function(obj) {
   		return "null";
   	}
   	//stub for handling objects. Will use handleArray() function inside
-  	handleObject(obj);
+  	results = handleObject(obj);
   }
   else{
   	//stub for handling primative values
-  	handlePrimative(obj);
+  	results = handlePrimative(obj);
   }
+
+  return results;
 };
 
 // Utility functions
@@ -38,4 +40,4 @@ function handleArray(arr){
 //recursive
 function handleObject(obj){
 
-}
+};
