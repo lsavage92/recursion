@@ -4,5 +4,38 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  // your code goes here
+  // Check for undefined parameter
+  if(obj === undefined){
+  	return;
+  }
+
+  var results;
+  // Check to see if the type is object
+  if(typeof obj === "object"){
+  	// null check
+  	if(obj === null){
+  		return "null";
+  	}
+  	//stub for handling objects. Will use handleArray() function inside
+  	handleObject(obj);
+  }
+  else{
+  	//stub for handling primative values
+  	handlePrimatives(obj);
+  }
 };
+
+// Utility functions
+function handlePrimative(primative){
+
+}
+
+//recursive
+function handleArray(arr){
+
+}
+
+//recursive
+function handleObject(obj){
+
+}
