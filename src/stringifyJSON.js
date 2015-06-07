@@ -29,7 +29,12 @@ var stringifyJSON = function(obj) {
 
 // Utility functions
 function handlePrimative(primative){
-
+	if(typeof primative === "string"){
+		return primative;
+	}
+	else{
+		return primative.toString();
+	}
 }
 
 //recursive
