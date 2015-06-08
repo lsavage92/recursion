@@ -44,7 +44,12 @@ function handleArray(arr){
 	}
 	else{
 		if(Array.isArray(arr[0])){
-			return handleObject(arr.shift()) + ',' + handleArray(arr);
+			if(arr.length === 1){
+				return handleObject(arr.shift()) + handleArray(arr);
+			}
+			else{
+				return handleObject(arr.shift()) + ',' + handleArray(arr);
+			}
 		}
 		if(arr.length === 1){
 			return handlePrimative(arr.shift()) + handleArray(arr);
@@ -55,7 +60,6 @@ function handleArray(arr){
 	}
 
 }
-
 //recursive
 function handleObject(obj){
 	if(Array.isArray(obj)){
