@@ -39,10 +39,26 @@ function handlePrimative(primative){
 
 //recursive
 function handleArray(arr){
+	if(arr.length === 0){
+		return ']';
+	}
+	else{
+		if(Array.isArray(arr[0])){
+			return handleObject(arr.shift()) + ',' + handleArray(arr);
+		}
+		if(arr.length === 1){
+			return handlePrimative(arr.shift()) + handleArray(arr);
+		}
+		else{
+			return handlePrimative(arr.shift()) + ',' + handleArray(arr);
+		}
+	}
 
 }
 
 //recursive
 function handleObject(obj){
-
+	if(Array.isArray(obj)){
+		return '[' + handleArray(obj);
+	}
 };
