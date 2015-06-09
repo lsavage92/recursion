@@ -9,19 +9,49 @@ var stringifyJSON = function(obj) {
   	return;
   }
 
-  var results;
+  var results = "";
+
+  if(Array.isArray(obj)){
+    results += "[";
+    for(var i = 0; i < obj.length; i++){
+        if(i < obj.length - 1){
+            results += stringifyJSON(obj[i]) + ",";
+        }
+        else{
+            results += stringifyJSON(obj[i]);
+        }
+    }
+    results += "]";
+    return results;
+  }
   // Check to see if the type is object
   if(typeof obj === "object"){
   	// null check
   	if(obj === null){
   		return "null";
   	}
-  	//stub for handling objects. Will use handleArray() function inside
-  	results = handleObject(obj);
+    else{
+      var numProps = countProperties(obj);
+      var count = 0;
+      results += "{";
+      for(var key in obj){
+        if(typeof obj[key] === "function" || typeof obj[key] === "undefined"){
+          results = results;
+        }
+        else if(count === numProps - 1){
+          results += stringifyJSON(key) + ":" + stringifyJSON(obj[key]);
+        }
+        else{
+          results += stringifyJSON(key) + ":" + stringifyJSON(obj[key]) + ",";
+        }
+        count++;
+      }
+      results += "}";
+    }
   }
   else{
-  	//stub for handling primative values
-  	results = handlePrimative(obj);
+  	//handles primative values
+  	results += handlePrimative(obj);
   }
 
   return results;
@@ -37,32 +67,10 @@ function handlePrimative(primative){
 	}
 }
 
-//recursive
-function handleArray(arr){
-	if(arr.length === 0){
-		return ']';
-	}
-	else{
-		if(Array.isArray(arr[0])){
-			if(arr.length === 1){
-				return handleObject(arr.shift()) + handleArray(arr);
-			}
-			else{
-				return handleObject(arr.shift()) + ',' + handleArray(arr);
-			}
-		}
-		if(arr.length === 1){
-			return handlePrimative(arr.shift()) + handleArray(arr);
-		}
-		else{
-			return handlePrimative(arr.shift()) + ',' + handleArray(arr);
-		}
-	}
-
+function countProperties(obj){
+  var count = 0;
+  for(var key in obj){
+    count++;
+  }
+  return count;
 }
-//recursive
-function handleObject(obj){
-	if(Array.isArray(obj)){
-		return '[' + handleArray(obj);
-	}
-};
