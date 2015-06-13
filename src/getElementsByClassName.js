@@ -6,20 +6,21 @@
 // But instead we're going to implement it from scratch:
 // You should use document.body, element.childNodes, and element.classList
 var getElementsByClassName = function(className){
-  //Iteratively works for every example except for the last one with the containing divs
-  //need to add a check to see if there are more childNodes. if childNodes[0] === undefined there are no more. This is why we need recursion.
-  var body = document.body;
-  var childNodes = document.body.childNodes;
-  var results = [body];
-  for(var i = 0; i < childNodes.length; i++){
-    if(childNodes[i].classList != undefined){
-        for(var j = 0; j < childNodes[i].classList.length; j++){
-            if(childNodes[i].classList[j] === body.className){
-                results.push(childNodes[i]);
+  //var currentEle = document.body;
+  var results = [];
+  var node = document.childNodes;
+  
+    function walkThatDom(node){
+        for(var i = 0; i < node.length; i++){
+            if(node[i].classList && node[i].classList.contains(className)){
+                results.push(node[i]);
+            }
+            if(node[i].childNodes.length){
+                walkThatDom(node[i].childNodes);
             }
         }
     }
-  }
 
-  return results;
+    walkThatDom(node);
+    return results;
 };
